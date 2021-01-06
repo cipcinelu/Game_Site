@@ -9,7 +9,7 @@ const App = () => {
     <div className="app-wrapper">
       <Header></Header>
       <Navbar></Navbar>
-      test KEKW
+      test KEK
       <Profile></Profile>
     </div>
   );
