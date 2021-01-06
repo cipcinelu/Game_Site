@@ -8,7 +8,6 @@ const App = () => {
   return (
     <div className="app-wrapper">
       <Header></Header>
-      откатили
       <Navbar></Navbar>
       <Profile></Profile>
     </div>
