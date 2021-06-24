@@ -1,3 +1,9 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
+const SEND_MESSAGE = 'SEND_MESSAGE';
+
 let store = {
   _state: {
     profilePage: {
@@ -20,8 +26,9 @@ let store = {
       messages: [
         {id:1, message: 'HI'},
         {id:2, message: 'Как оно?'},
-        {id:3, message: 'Когда  сдашь проект?'}
-      ]
+        {id:3, message: 'Когда  сдашь проект? Привет, как дела? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error, deleniti qui molestiae reprehenderit, optio cumque consequatur blanditiis reiciendis molestias tenetur magnam totam delectus laborum similique recusandae. Corrupti assumenda temporibus reprehenderit!'},
+      ],
+        newMessageBody: '',
     }
   },
   _callSubscriber()
@@ -37,7 +44,7 @@ let store = {
   },
 
   dispatch(action) {
-    if (action.type === 'ADD-POST')
+    if (action.type === 'ADD-POST') //это action, а action это объект
     {
       let newPost = {
         id:5,
@@ -51,9 +58,27 @@ let store = {
     {
       this._state.profilePage.newPostText = action.newText;
       this._callSubscriber(this._state);
+    } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY')
+    {
+      this._state.dialogsPage.newMessageBody = action.body; //меняем стейт, сохраняем текст из поля ввода
+      this._callSubscriber(this._state); //говорим всем, что изменили стейт, перерисовка страницы
+    } else if (action.type === 'SEND_MESSAGE')
+    {
+      let body = this._state.dialogsPage.newMessageBody; //копируем сохранённый текст, во временную переменную
+      this._state.dialogsPage.newMessageBody = ''; //обнуляем поле ввода
+      this._state.dialogsPage.messages.push({id: 6, message: body}); //отправляем текст в базу
+      this._callSubscriber(this._state); 
     }
   }
 }
+
+export const addPostAction = () => ({type: ADD_POST})
+export const updateNewPostTextAction = (text) => 
+      ({type:UPDATE_NEW_POST_TEXT, newText:text})
+
+export const sendMessageCreator = () => ({type: SEND_MESSAGE})
+export const updateNewMessageBodyCreator = (body) => 
+      ({type:UPDATE_NEW_MESSAGE_BODY, body: body})
 
 export default store;
 //windows.store = store;

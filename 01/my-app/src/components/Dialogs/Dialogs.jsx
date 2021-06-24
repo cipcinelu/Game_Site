@@ -1,6 +1,7 @@
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import classes from './Dialogs.module.css'
+import Polevvoda from './poleVvoda/polevvoda'
 
 
 const Dialogs = (props) => {
@@ -12,10 +13,10 @@ const Dialogs = (props) => {
                 <div className = {classes.dialogsItems}>
                     {dialogsElement}
                 </div>
-        
                 <div className = {classes.messager}>
                     {messagesElement}
                 </div>
+                <Polevvoda store = {props.store}></Polevvoda>
             </div>
 }
 

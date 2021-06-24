@@ -1,20 +1,23 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 2fr 10fr;    
+    grid-template-columns: 2fr 10fr;
+    grid-template-areas:
+    "d m"
+    "d p";
+    width: 80%
 }
+
 
 .dialogsItems {
     padding: 10px;
-}
-
-.dialog {
-
+    grid-area: d;
 }
 
 .messager {
     padding: 10px;
+    grid-area: m;
 }
 
-.message {
-
+.polevvoda {
+    grid-area: p;
 }

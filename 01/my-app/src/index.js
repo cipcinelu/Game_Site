@@ -12,7 +12,8 @@ let rerenderEntireThree = (state) => {
     <React.StrictMode>  {/*строгий синтаксис, но выводит ошибки */}
       <BrowserRouter>   {/* BrowserRouter — следует использовать когда вы обрабатываете на сервере динамические запросы, а HashRouter используйте когда у вас статический веб сайт. */}
         <App state = {store.getState()} 
-             dispatch = {store.dispatch.bind(store)}/>
+             dispatch = {store.dispatch.bind(store)}
+             store={store}/>
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
