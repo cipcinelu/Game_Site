@@ -1,3 +1,7 @@
+import dialogsReducer from "./dialogsReducer";
+import profileReducer from "./profileReducer";
+import sidebarReducer from "./sidebarReducer";
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
@@ -44,31 +48,12 @@ let store = {
   },
 
   dispatch(action) {
-    if (action.type === 'ADD-POST') //это action, а action это объект
-    {
-      let newPost = {
-        id:5,
-        message: this._state.profilePage.newPostText,
-        likesCount:1
-      };
-      this._state.profilePage.posts.push (newPost);
-      this._state.profilePage.newPostText = '';
-      this._callSubscriber(this._state);
-    } else if (action.type === 'UPDATE-NEW-POST-TEXT')
-    {
-      this._state.profilePage.newPostText = action.newText;
-      this._callSubscriber(this._state);
-    } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY')
-    {
-      this._state.dialogsPage.newMessageBody = action.body; //меняем стейт, сохраняем текст из поля ввода
-      this._callSubscriber(this._state); //говорим всем, что изменили стейт, перерисовка страницы
-    } else if (action.type === 'SEND_MESSAGE')
-    {
-      let body = this._state.dialogsPage.newMessageBody; //копируем сохранённый текст, во временную переменную
-      this._state.dialogsPage.newMessageBody = ''; //обнуляем поле ввода
-      this._state.dialogsPage.messages.push({id: 6, message: body}); //отправляем текст в базу
-      this._callSubscriber(this._state); 
-    }
+
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsePage = dialogsReducer(this._state.dialogsPage, action);
+    this._state.sidebarPage = sidebarReducer(this._state.sidebarPage, action);
+
+    this._callSubscriber (this._state);
   }
 }
 

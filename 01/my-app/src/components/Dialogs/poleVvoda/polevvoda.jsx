@@ -1,5 +1,5 @@
 import classes from './polevvoda.module.css'
-import {updateNewMessageBodyCreator, sendMessageCreator} from '../../../redux/state'
+import {updateNewMessageBodyCreator, sendMessageCreator} from '../../../redux/store'
 
 const Polevvoda = (props) => {
 
@@ -12,7 +12,7 @@ const Polevvoda = (props) => {
     
     let onNewMessageChange = (event) => {
         let body = event.target.value; //получаем значение из textarea
-        props.store.dispatch(updateNewMessageBodyCreator(body));
+        props.updateNewMessageBody(body);
     }
 
     return <div className={classes.polevvoda}>    

@@ -1,30 +1,29 @@
 import Post from './Post/Post'
 import s from './MyPosts.module.css'
 import React from 'react'
-import {addPostAction, updateNewPostTextAction} from '../../../redux/state.js'
 
 const MyPosts = (props) => {
     let postsElements = props.posts.map (p => <Post message = {p.message} likesCount = {p.likesCount}/>)
-    let newPostElement = React.createRef(); 
-    let addPost = () => props.dispatch(addPostAction());
+    let newPostElement = React.createRef(); //ссылка на текущий рендер страницы
+    let onAddPost = () => props.addPost();
     
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        let action = updateNewPostTextAction(text);
-        props.dispatch (action);
+        props.updateNewPostText(text);
+        //let action = updateNewPostTextAction(text);
+        //props.dispatch (action);
     }
 
     return <div className = {s.postsBlock}>
+    <div>
         <div>
-            <div>
-                <textarea onChange = {onPostChange} ref = {newPostElement} value = {props.newPostText}></textarea>
-            </div>
-            <div>
-                <button onClick = {addPost}>Add Post</button>
-            </div>
+            <textarea onChange = {onPostChange} ref = {newPostElement} value = {props.newPostText}></textarea>
         </div>
-            {postsElements}
+        <div>
+            <button onClick = {onAddPost}>Add Post</button>
         </div>
+    </div>
+        {postsElements}
+    </div>
 }
-
 export default MyPosts
