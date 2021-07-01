@@ -6,14 +6,18 @@ import './index.css';
 import App from './App';
 import store from './redux/redux-store';
 import {BrowserRouter} from 'react-router-dom';
+import {Provider} from './StoreContext'
 
 let rerenderEntireThree = (state) => {
   ReactDOM.render(
     <React.StrictMode>  {/*строгий синтаксис, но выводит ошибки */}
       <BrowserRouter>   {/* BrowserRouter — следует использовать когда вы обрабатываете на сервере динамические запросы, а HashRouter используйте когда у вас статический веб сайт. */}
-        <App state = {store.getState()} 
+        <Provider store = {store}  >
+        {/* <App state = {store.getState()} 
              dispatch = {store.dispatch.bind(store)}
-             store={store}/>
+             store={store}/> */}
+             <App></App>
+        </Provider>
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
