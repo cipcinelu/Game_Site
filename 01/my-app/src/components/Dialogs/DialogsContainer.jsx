@@ -1,11 +1,11 @@
-import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/store'
+import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/dialogsReducer'
 import Dialogs from './Dialogs';
 import StoreContext from '../../StoreContext';
 
 const DialogsContainer = () => {
 
     return <StoreContext.Consumer>
-        { (store) => {
+        { store => {
 
             let state = store.getState().dialogsPage;
 
