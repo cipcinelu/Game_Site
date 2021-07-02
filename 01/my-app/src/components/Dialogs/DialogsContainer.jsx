@@ -1,28 +1,25 @@
 import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/dialogsReducer'
 import Dialogs from './Dialogs';
-import StoreContext from '../../StoreContext';
+import {connect} from 'react-redux'
 
-const DialogsContainer = () => {
-
-    return <StoreContext.Consumer>
-        { store => {
-
-            let state = store.getState().dialogsPage;
-
-            let onSendMessageClick = () => {
-                store.dispatch(sendMessageCreator());
-            }
-        
-            let onNewMessageChange = (body) => {
-                store.dispatch(updateNewMessageBodyCreator(body));
-            }        
-
-            return <Dialogs updateNewMessageBody = { onNewMessageChange }
-                    sendMessage = { onSendMessageClick }
-                    dialogsPage = { state }></Dialogs>
-}}
-                    </StoreContext.Consumer >
-
+let mapStateToProps = (state) => { //отвечает за данные
+    return{
+        dialogsPage: state.dialogsPage
+    }
 }
+
+let mapDispatchToProps = (dispatch) => { //отвечает за отправление данных через коллбеки
+    return {
+        updateNewMessageBody: () => {
+            dispatch(sendMessageCreator());
+        },
+        sendMessage: (body) => {
+            dispatch(updateNewMessageBodyCreator(body));
+        }
+    }
+}
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs); //рисует презентационную компаненту и передаёт ей данные из полученных функций
+//штука выше возвращает новую контейнерную компаненту
 
 export default DialogsContainer
