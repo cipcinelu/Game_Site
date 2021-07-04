@@ -8,7 +8,6 @@ import store from './redux/redux-store';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux'
 
-let rerenderEntireThree = (state) => {
   ReactDOM.render(
     <React.StrictMode>  {/*строгий синтаксис, но выводит ошибки */}
       <BrowserRouter>   {/* BrowserRouter — следует использовать когда вы обрабатываете на сервере динамические запросы, а HashRouter используйте когда у вас статический веб сайт. */}
@@ -22,13 +21,7 @@ let rerenderEntireThree = (state) => {
     </React.StrictMode>,
     document.getElementById('root')
   );
-}
-rerenderEntireThree(store.getState());
 
-store.subscribe(()=>{
-  let state = store.getState();
-  rerenderEntireThree(state);
-});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

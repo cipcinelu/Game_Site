@@ -10,10 +10,10 @@ let mapStateToProps = (state) => { //отвечает за данные
 
 let mapDispatchToProps = (dispatch) => { //отвечает за отправление данных через коллбеки
     return {
-        updateNewMessageBody: () => {
+        sendMessage: () => {
             dispatch(sendMessageCreator());
         },
-        sendMessage: (body) => {
+        updateNewMessageBody: (body) => {
             dispatch(updateNewMessageBodyCreator(body));
         }
     }

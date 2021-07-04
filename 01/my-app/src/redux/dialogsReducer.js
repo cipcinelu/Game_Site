@@ -19,15 +19,21 @@ let initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
+    
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.body; //меняем стейт, сохраняем текст из поля ввода
-            return state;
+            return {
+                ...state,
+                newMessageBody: action.body, //меняем стейт, сохраняем текст из поля ввода
+            };
         case SEND_MESSAGE:
             let body = state.newMessageBody; //копируем сохранённый текст, во временную переменную
-            state.newMessageBody = ''; //обнуляем поле ввода
-            state.messages.push({ id: 6, message: body }); //отправляем текст в базу
-            return state;
+            return {
+                ...state,
+                newMessageBody: '',
+                messages: [...state.messages, { id: 6, message: body }] //отправляем текст в базу
+            }; //типо в начале передаём все известные переменные, а последней назначаем то что нам нужно
+
         default:
             return state;
     }
@@ -36,6 +42,5 @@ const dialogsReducer = (state = initialState, action) => {
 export const sendMessageCreator = () => ({type: SEND_MESSAGE})
 export const updateNewMessageBodyCreator = (body) => 
       ({type:UPDATE_NEW_MESSAGE_BODY, body: body})
-
 
 export default dialogsReducer;

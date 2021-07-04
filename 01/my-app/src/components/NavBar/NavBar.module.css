@@ -1,8 +1,9 @@
 .nav {
     grid-area: n;
-    background-color:bisque;
+    background-color:rgb(253, 235, 212);
   }
 
   .item {
-    text-align: center;
+    text-align: left;
+    margin-left: 50%;
   }
