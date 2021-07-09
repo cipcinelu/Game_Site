@@ -8,14 +8,12 @@ import store from './redux/redux-store';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux'
 
+
   ReactDOM.render(
     <React.StrictMode>  {/*строгий синтаксис, но выводит ошибки */}
       <BrowserRouter>   {/* BrowserRouter — следует использовать когда вы обрабатываете на сервере динамические запросы, а HashRouter используйте когда у вас статический веб сайт. */}
         <Provider store = {store}  >
-        {/* <App state = {store.getState()} 
-             dispatch = {store.dispatch.bind(store)}
-             store={store}/> */}
-             <App></App>
+          <App/>
         </Provider>
       </BrowserRouter>
     </React.StrictMode>,

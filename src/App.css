@@ -6,11 +6,14 @@
 
   grid-template-rows: 60px 1fr;
   grid-template-columns: 3fr 10fr;
+  background-color:lavender;
+
 }
 
 .app-wrapper-content {
     grid-area: c;
-    background-color:lavender;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 a{
@@ -21,3 +24,4 @@ a{
 a:hover {
   color: rgb(99, 99, 99);
 }
+

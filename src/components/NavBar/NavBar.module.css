@@ -5,5 +5,9 @@
 
   .item {
     text-align: left;
+    margin-top: 4%;
     margin-left: 50%;
+    margin-right: 10%;
+    font-size:large;
+    font-weight: 600;
   }

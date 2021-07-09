@@ -1,7 +1,18 @@
 .descriptionBlock {
-    padding: 10px;
+    display: grid;
+    grid-template-columns: 3fr 10fr;
+    margin-top: 3%;
 }
 
 .headImage {
-    width: 720px;
+    width: 98%;
+}
+
+.profileName {
+    margin-left: 5%;
+    font-size: 140%;
+}
+
+.avatar {
+    width: 100%;
 }

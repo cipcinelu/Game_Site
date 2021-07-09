@@ -1,21 +1,16 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
-
-// let photoUrls = [
-//     'https://static.zerochan.net/Akazawa.Izumi.full.1016545.jpg',
-//     'https://pm1.narvii.com/7078/aa72f616a419ae1468a04e61e7ca39b304caccc7r1-900-900v2_hq.jpg',
-//     'https://i.pinimg.com/originals/d2/66/f3/d266f306a14882479953aef12c565005.jpg',
-//     'https://i03.fotocdn.net/s117/81fd8c34ba0be8d0/user_l/2655050221.jpg'
-// ];
+const SET_CURRENT_PAGE = 'SET_PAGE';
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 let initialState = {
-    users: [
-        // {id:1, photoUrl: photoUrls[0], fullName: 'Dima', followed: true, status: 'I am boss of the gym', location: {city:'Moscow', country: 'Belarus'}},
-        // {id:2, photoUrl: photoUrls[1], fullName: 'Kolia', followed: false, status: 'I am boss of the code', location: {city:'Moscow', country: 'Belarus'}},
-        // {id:3, photoUrl: photoUrls[2], fullName: 'Vasia', followed: true, status: 'I am boss of the Minecraft', location: {city:'Moscow', country: 'Belarus'}},
-        // {id:4, photoUrl: photoUrls[3], fullName: 'Pasha', followed: true, status: 'I am boss of the money', location: {city:'Moscow', country: 'Belarus'}},
-        ]
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1,
+    isFetching: false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -42,20 +37,32 @@ const usersReducer = (state = initialState, action) => {
                     return u;
                 })
             }
+            
         case SET_USERS: {
             return {
                 ...state,
-                users: [...state.users, ...action.users] //к массиву старых юзеров дописываем новых
+                users: action.users //к массиву старых юзеров дописываем новых
             }
         }
-        
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.currentPage}
+        }
+        case SET_TOTAL_USERS_COUNT: {
+            return {...state, totalUsersCount: action.count}
+        }
+        case TOGGLE_IS_FETCHING: {
+            return {...state, isFetching: action.isFetching}
+        }
         default:
             return state;
     }
 }
 
-export const followAC = (userId) => ({type: FOLLOW, userId})
-export const unfollowAC = (userId) => ({type:UNFOLLOW, userId})
-export const setUsersAC = (users) => ({type: SET_USERS, users})
+export const follow = (userId) => ({type: FOLLOW, userId})
+export const unfollow = (userId) => ({type:UNFOLLOW, userId})
+export const setUsers = (users) => ({type: SET_USERS, users}) //это всё action creator
+export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
+export const setUsersTotalCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount})
+export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 
 export default usersReducer;

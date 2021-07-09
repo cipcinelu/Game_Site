@@ -1,4 +1,5 @@
 import {combineReducers, createStore} from "redux";
+import authReducer from "./authReducer";
 import dialogsReducer from './dialogsReducer';
 import profileReducer from './profileReducer';
 import sidebarReducer from './sidebarReducer';
@@ -10,6 +11,7 @@ let reducers = combineReducers(  //это что-то типо стейта
         profilePage:profileReducer, // совойством:значением
         sidebarPage:sidebarReducer,
         usersPage:usersReducer,
+        auth: authReducer,
     }
 )
 
