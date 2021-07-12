@@ -9,7 +9,7 @@ const Profile = (props) => {
     if (!props.profile) {//если profile null или undefinded
         return <Preloader/>
     }
-
+    
     return <div>
         <ProfileInfo profile = {props.profile}/>
         <MyPostsContainer store = {props.store}/>

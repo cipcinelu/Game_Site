@@ -1,9 +1,10 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import authReducer from "./authReducer";
 import dialogsReducer from './dialogsReducer';
 import profileReducer from './profileReducer';
 import sidebarReducer from './sidebarReducer';
 import usersReducer from "./usersReduces";
+import thunkMiddleware from 'redux-thunk'
 
 let reducers = combineReducers(  //это что-то типо стейта
     {
@@ -15,6 +16,6 @@ let reducers = combineReducers(  //это что-то типо стейта
     }
 )
 
-let store = createStore(reducers); //сам создаёт стейт со свойствами
-
+let store = createStore(reducers, applyMiddleware(thunkMiddleware)); //сам создаёт стейт со свойствами
+                                // включает промежуточный слой
 export default store;

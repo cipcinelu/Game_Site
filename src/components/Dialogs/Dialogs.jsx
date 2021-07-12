@@ -1,6 +1,7 @@
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import classes from './Dialogs.module.css'
+import { Redirect } from 'react-router-dom';
 
 const Dialogs = (props) => {
 
@@ -18,6 +19,8 @@ const Dialogs = (props) => {
         let body = event.target.value; //получаем значение из textarea
         props.updateNewMessageBody(body);
     }
+
+    if (!props.isAuth) return <Redirect to = {'/login'}></Redirect>
 
     return <div className={classes.dialogs}>
         <div className={classes.dialogsItems}>
