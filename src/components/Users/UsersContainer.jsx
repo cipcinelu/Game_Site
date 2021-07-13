@@ -3,6 +3,8 @@ import { follow, unfollow, setCurrentPage,  getUsers } from '../../redux/usersRe
 import React from 'react'
 import Users from './Users'
 import Preloader from '../common/Preloader/Preloader'
+import { withAuthRedirect } from '../../HOC/withAuthRedirect'
+import { compose } from 'redux'
 
 class UsersContainer extends React.Component { //наследую реакт компаненту
 
@@ -42,12 +44,13 @@ let mapStateToProps = (state) => {
     }
 }
 
-
-export default connect (mapStateToProps, 
-    {follow, unfollow,  //функция connect сама может диспатчить action creator
-    setCurrentPage, //follow:follow (полностью писать не обязательно)
-    getUsers}) (UsersContainer);
-
+export default compose (
+    withAuthRedirect,
+    connect(mapStateToProps, 
+        {follow, unfollow,  //функция connect сама может диспатчить action creator
+        setCurrentPage, //follow:follow (полностью писать не обязательно)
+        getUsers})
+)(UsersContainer)
 
     // let mapDispatchToProps = (dispatch) => {
 //     return {

@@ -1,11 +1,12 @@
 import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/dialogsReducer'
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux'
+import { withAuthRedirect } from '../../HOC/withAuthRedirect';
+import { compose } from 'redux';
 
 let mapStateToProps = (state) => { //отвечает за данные
     return{
         dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth,
     }
 }
 
@@ -20,7 +21,7 @@ let mapDispatchToProps = (dispatch) => { //отвечает за отправл�
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs); //рисует презентационную компаненту и передаёт ей данные из полученных функций
-//штука выше возвращает новую контейнерную компаненту
-
-export default DialogsContainer
+export default compose ( // это конвеер, он вызывает функцию(снизу в верх) и передаёт её результат выше по списку
+    connect(mapStateToProps, mapDispatchToProps), //рисует презентационную компаненту и передаёт ей данные из полученных функций
+    withAuthRedirect,
+) (Dialogs)
