@@ -13,7 +13,7 @@ const ProfileInfo = (props) => {
             </div>
             <div className = {style.profileName}>Имя: {props.profile.fullName}</div>
         </div>
-        <ProfileStatus status = 'Сегодня я красивый'/>
+        <ProfileStatus status = {props.status} updateStatus = {props.updateStatus}/>
 
     </div>
 }
