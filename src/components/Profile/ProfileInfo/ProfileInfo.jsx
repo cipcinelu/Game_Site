@@ -1,6 +1,6 @@
 import style from './profileInfo.module.css'
 import withoutPhoto from '../../../img/withoutPhoto.png'
-import ProfileStatus from './ProfileStatus/ProfileStatus'
+import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks'
 
 const ProfileInfo = (props) => {
 
@@ -13,7 +13,7 @@ const ProfileInfo = (props) => {
             </div>
             <div className = {style.profileName}>Имя: {props.profile.fullName}</div>
         </div>
-        <ProfileStatus status = {props.status} updateStatus = {props.updateStatus}/>
+        <ProfileStatusWithHooks status = {props.status} updateStatus = {props.updateStatus}/>
 
     </div>
 }

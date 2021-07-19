@@ -11,7 +11,6 @@ const Dialogs = (props) => {
 
     let dialogsElement = state.dialogs.map(d => <DialogItem Name={d.name} id={d.id} key={d.id} />)
     let messagesElement = state.messages.map(m => <Message message={m.message} key={m.id} />)
-    let newMessageBody = state.newMessageBody; //получаем сохранённое значение textarea
 
     let addNewMessage = (values) => {
         props.sendMessage(values.newMessageBody); // название заданное в филде
