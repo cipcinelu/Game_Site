@@ -1,20 +1,21 @@
 import {connect} from 'react-redux'
-import { follow, unfollow, setCurrentPage,  getUsers } from '../../redux/usersReduces'
+import { follow, unfollow, setCurrentPage,  reqestUsers } from '../../redux/usersReduces'
 import React from 'react'
 import Users from './Users'
 import Preloader from '../common/Preloader/Preloader'
 import { withAuthRedirect } from '../../HOC/withAuthRedirect'
 import { compose } from 'redux'
+import {getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers, getUsersPage } from '../../redux/usersSelectors'
 
 class UsersContainer extends React.Component { //наследую реакт компаненту
 
     componentDidMount() {   //аякс запрос
                             //вызывается один раз при отрисовки этой страницы, после рендера          
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        this.props.reqestUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.reqestUsers(pageNumber, this.props.pageSize);
     }
 
     render() {     
@@ -35,12 +36,12 @@ class UsersContainer extends React.Component { //наследую реакт к�
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users, //в компаненту придут юзеры, значениями которого будут юзеры из стейта
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state), //в компаненту придут юзеры, значениями которого будут юзеры из стейта
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 
@@ -49,7 +50,7 @@ export default compose (
     connect(mapStateToProps, 
         {follow, unfollow,  //функция connect сама может диспатчить action creator
         setCurrentPage, //follow:follow (полностью писать не обязательно)
-        getUsers})
+        reqestUsers})
 )(UsersContainer)
 
     // let mapDispatchToProps = (dispatch) => {

@@ -5,6 +5,8 @@ import profileReducer from './profileReducer';
 import sidebarReducer from './sidebarReducer';
 import usersReducer from "./usersReduces";
 import thunkMiddleware from 'redux-thunk'
+import { reducer } from "redux-form";
+import appReducer from "./appReducer";
 
 let reducers = combineReducers(  //это что-то типо стейта
     {
@@ -13,6 +15,8 @@ let reducers = combineReducers(  //это что-то типо стейта
         sidebarPage:sidebarReducer,
         usersPage:usersReducer,
         auth: authReducer,
+        form: reducer,  
+        app: appReducer,
     }
 )
 

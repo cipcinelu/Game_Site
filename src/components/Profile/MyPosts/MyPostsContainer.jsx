@@ -1,5 +1,5 @@
 import MyPosts from './MyPosts'
-import { addPostAction, updateNewPostTextAction } from '../../../redux/profileReducer'
+import { addPostAction } from '../../../redux/profileReducer'
 import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => { //отвечает за данные
@@ -11,12 +11,8 @@ const mapStateToProps = (state) => { //отвечает за данные
     
 const mapDispatchToProps = (dispatch) => { //отвечает за отправление данных через коллбеки
         return {
-            updateNewPostText: (text) => {
-                let action = updateNewPostTextAction(text);
-                dispatch(action);
-            },
-            addPost: () => {
-                dispatch(addPostAction());
+            addPost: (newPostText) => {
+                dispatch(addPostAction(newPostText));
             }
         }
 }  
