@@ -11,7 +11,8 @@ class UsersContainer extends React.Component { //наследую реакт к�
 
     componentDidMount() {   //аякс запрос
                             //вызывается один раз при отрисовки этой страницы, после рендера          
-        this.props.reqestUsers(this.props.currentPage, this.props.pageSize);
+        let {currentPage, pageSize} = this.props;
+        this.props.reqestUsers(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber) => {

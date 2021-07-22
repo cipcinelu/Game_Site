@@ -29,26 +29,26 @@ export const usersAPI = {
 export const profileApi = {
     getProfile (userId) {
         return instance.get(`profile/${userId}`)
-            .then(returnResponse)
+            .then( Response => Response)
     },
     getStatus (userId) {    
         return instance.get(`profile/status/${userId}`)
-        .then(returnResponse)
+        .then(Response => Response)
     },
     updateStatus (status) {
         return instance.put('profile/status/', {status: status})
-        .then(returnResponse)
+        .then(Response => Response)
     },
 }
 
 export const authAPI = {
     me () {
         return instance.get ('auth/me/')
-            .then (returnResponse)
+            .then (Response => Response)
     },
     login (email,password, rememberMe = false) {
         return instance.post ('auth/login/', {email,password, rememberMe})
-            .then (returnResponse)
+            .then ( Response => Response)
     },
     logout () {
         return instance.delete ('auth/login/')

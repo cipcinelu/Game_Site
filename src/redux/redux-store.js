@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import authReducer from "./authReducer";
 import dialogsReducer from './dialogsReducer';
 import profileReducer from './profileReducer';
@@ -10,16 +10,19 @@ import appReducer from "./appReducer";
 
 let reducers = combineReducers(  //это что-то типо стейта
     {
-        dialogsPage:dialogsReducer, //мы создаём объект
-        profilePage:profileReducer, // совойством:значением
-        sidebarPage:sidebarReducer,
-        usersPage:usersReducer,
+        dialogsPage: dialogsReducer, //мы создаём объект
+        profilePage: profileReducer, // совойством:значением
+        sidebarPage: sidebarReducer,
+        usersPage: usersReducer,
         auth: authReducer,
-        form: reducer,  
+        form: reducer,
         app: appReducer,
     }
 )
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware)); //сам создаёт стейт со свойствами
-                                // включает промежуточный слой
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(  //сам создаёт стейт со свойствами
+        applyMiddleware(thunkMiddleware)    // включает промежуточный слой
+    ));
+    
 export default store;

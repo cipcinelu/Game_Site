@@ -3,7 +3,7 @@ import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App, { MainApp } from './App';
 import store from './redux/redux-store';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux'
@@ -11,11 +11,7 @@ import {Provider} from 'react-redux'
 
   ReactDOM.render(
     <React.StrictMode>  {/*строгий синтаксис, но выводит ошибки */}
-      <BrowserRouter>   {/* BrowserRouter — следует использовать когда вы обрабатываете на сервере динамические запросы, а HashRouter используйте когда у вас статический веб сайт. */}
-        <Provider store = {store}  >
-          <App/>
-        </Provider>
-      </BrowserRouter>
+        <MainApp/>
     </React.StrictMode>,
     document.getElementById('root')
   );

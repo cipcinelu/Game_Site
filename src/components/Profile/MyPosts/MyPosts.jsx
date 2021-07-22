@@ -9,7 +9,6 @@ let maxLength10 = maxLengthCreator (10);
 
 const MyPosts = React.memo ((props) => {
     let postsElements = props.posts.map (p => <Post message = {p.message} likesCount = {p.likesCount}/>)
-    let newPostElement = React.createRef(); //ссылка на текущий рендер страницы
     let onAddPost = (values) => props.addPost(values.newPostText);
 
     return <div className = {s.postsBlock}>
