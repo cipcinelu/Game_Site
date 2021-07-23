@@ -1,4 +1,20 @@
+.paginator {
+    
+}
 
 .selectedPage {
     font-weight: bold;
+}
+
+.pageNumber {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.nextButton {
+    margin-left:1%;
+}
+
+.prevButton {
+    margin-right:1%;
 }
