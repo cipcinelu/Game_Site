@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
 import styles from './Paginator.module.css'
 
 const Paginator = (props, {portionSize = 10}) => {
@@ -22,10 +21,10 @@ const Paginator = (props, {portionSize = 10}) => {
         {pages
         .filter (p => p >=letftPortionPageNumber && p <=rightPortionPageNumber)
         .map(p => {
-            return <a
+            return <span
                 className={props.currentPage === p && styles.selectedPage}
                 key = {p}
-                onClick={(e) => { props.onPageChanged(p) }}>{p} </a> //это обработчик событий
+                onClick={(e) => { props.onPageChanged(p) }}>{p} </span> //это обработчик событий
         })}
         </div>
         {portionCount > portionNumber &&

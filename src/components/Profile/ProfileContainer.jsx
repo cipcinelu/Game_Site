@@ -1,14 +1,14 @@
 import React from 'react'
 import Profile from './Profile'
 import {connect} from 'react-redux'
-import {getStatus, getUserProfile, updateStatus} from '../../redux/profileReducer'
+import {getStatus, getUserProfile, updateStatus, savePhoto, saveProfile} from '../../redux/profileReducer'
 import { withRouter } from 'react-router'
 import { compose } from 'redux'
 import {withAuthRedirect} from '../../HOC/withAuthRedirect'
 
 class ProfileContainer extends React.Component {
 
-    componentDidMount() { 
+    refreshProfile () {
         let userId = this.props.match.params.userId; // match - воспадение найдено
         if (!userId) { 
             userId = this.props.authorizedUserId;
@@ -20,6 +20,15 @@ class ProfileContainer extends React.Component {
         this.props.getStatus(userId);
     }
 
+    componentDidMount () {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps, PrevState, snapsot) { 
+        if (this.props.match.params.userId !== prevProps.match.params.userId)
+        this.refreshProfile()
+    }
+
     render() {
         return (
             <Profile {...this.props} 
@@ -27,6 +36,9 @@ class ProfileContainer extends React.Component {
                 users = {this.users}
                 status = {this.props.status}
                 updateStatus = {this.props.updateStatus}
+                owner = {!this.props.match.params.userId}
+                savePhoto = {this.props.savePhoto}
+                saveProfile = {this.props.saveProfile}
                 ></Profile>
         )
     }
@@ -40,7 +52,7 @@ let mapStateToProps = (state) => ({ //функция возвращает объ
 })
 
 export default compose(
-    connect (mapStateToProps, {getUserProfile, getStatus, updateStatus,}),
+    connect (mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile,}),
     withRouter,     //передаём информацию из url
     withAuthRedirect
 )(ProfileContainer)

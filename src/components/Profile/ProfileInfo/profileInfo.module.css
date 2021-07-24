@@ -8,11 +8,9 @@
     width: 98%;
 }
 
-.profileName {
-    margin-left: 5%;
-    font-size: 140%;
-}
-
 .avatar {
     width: 100%;
+}
+.profileData {
+    margin-left: 5%;
 }
