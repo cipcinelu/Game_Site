@@ -7,7 +7,7 @@ import {Textarea} from '../../common/FormsControls/FormsControls'
 
 let maxLength10 = maxLengthCreator (10);
 
-const MyPosts = React.memo ((props) => {
+const MyPosts = React.memo ((props) => { // блягодаря memo компонента перерисовывается, только если измнилась   
     let postsElements = props.posts.map (p => <Post key = {p.id} message = {p.message} likesCount = {p.likesCount}/>)
     let onAddPost = (values) => props.addPost(values.newPostText);
 

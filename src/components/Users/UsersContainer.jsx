@@ -39,8 +39,8 @@ let mapStateToProps = (state) => {
     return {
         users: getUsers(state), //в компаненту придут юзеры, значениями которого будут юзеры из стейта
         pageSize: getPageSize(state),
-        totalUsersCount: getTotalUsersCount(state),
-        currentPage: getCurrentPage(state),
+        totalUsersCount: getTotalUsersCount(state), // для сложных данных используются селекторы
+        currentPage: getCurrentPage(state),         // они могут, фильтровать, считать и многое другое
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state)
     }

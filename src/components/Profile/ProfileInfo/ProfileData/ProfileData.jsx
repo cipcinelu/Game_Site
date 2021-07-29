@@ -19,13 +19,16 @@ export const ProfileData = ({ profile, isOwner, goToEditMode }) => {
         <div>
             {!!profile.contacts &&
                 <div>
-                    <b>My contacts</b>: {Object.keys(profile.contacts).map(
+                    <b>My contacts</b>: 
+                    {
+                    Object.keys(profile.contacts).map(          
                         key => {
+                        if (!!profile.contacts[key]) {
                         return <Contact
                         key={key}
                         contactTitle={key}
                         contactValue={profile.contacts[key]} />
-                        }
+                        }}
                     )}
                 </div>}
         </div>

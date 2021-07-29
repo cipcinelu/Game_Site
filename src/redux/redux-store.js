@@ -22,7 +22,7 @@ let reducers = combineReducers(  //это что-то типо стейта
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnhancers(  //сам создаёт стейт со свойствами
-        applyMiddleware(thunkMiddleware)    // включает промежуточный слой
+        applyMiddleware(thunkMiddleware)    // включает промежуточный слой, нужен для работы thunk
     ));
     
 export default store;
