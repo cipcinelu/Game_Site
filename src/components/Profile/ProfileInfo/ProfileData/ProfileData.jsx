@@ -27,8 +27,9 @@ export const ProfileData = ({ profile, isOwner, goToEditMode }) => {
                         return <Contact
                         key={key}
                         contactTitle={key}
-                        contactValue={profile.contacts[key]} />
-                        }}
+                        contactValue={profile.contacts[key]}
+                         />
+                        } } 
                     )}
                 </div>}
         </div>

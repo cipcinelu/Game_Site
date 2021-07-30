@@ -1,59 +1,80 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
-import { required } from '../../utils/validators/validators'
-import { Input } from '../common/FormsControls/FormsControls'
 import { login } from '../../redux/authReducer'
 import { Redirect } from 'react-router-dom'
-import style from '../common/FormsControls/FormsControls.module.css'
+import style from './Login.module.css'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import Captcha from './Captcha'
 
-const LoginForm = ({handleSubmit, error, captchaUrl}) => {
-    return <form onSubmit={handleSubmit}> {/*при нажатии на форму запускает функцию обработчик*/}
-    <div>
-        <Field placeholder = {'Email'} 
-                name = {'email'}   
-                component = {Input}
-                validate={[required]}></Field>
+const LoginForm = (props) => {
+
+    let [error, setError] = useState ();
+
+    return <div>
+        <Formik
+            initialValues={{ email: '', password: '' }}
+            validate={values => {
+                const errors = {};
+                if (!values.email) {
+                    errors.email = 'Required';
+                } else if (
+                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                ) {
+                    errors.email = 'Invalid email address';
+                }
+                if (!values.password) {
+                    errors.password = 'Required';
+                } 
+                return errors;
+            }}
+            onSubmit={(value, actions) => {
+                props.login(value.email, value.password, value.rememderMe, value.captcha)// здесь логин это колбек фунция, которая диспатчит вызов санки (та что в конненкте)
+                    .then(() => {
+                    })
+                    .catch ((e) => {
+                        setError(e)
+                    })
+                    .finally(() => {
+                        actions.setSubmitting(false);
+                    })
+            }}>
+
+            {({ isSubmitting }) => ( // возвращает true когда submission в прогрессе
+                <Form className={style.form}>
+                    <div>
+                        <Field type="email" name="email" placeholder={'Email'} /> {/*типо должен совпасть с initialValues  */}
+                    </div>
+                    <div>
+                        <ErrorMessage name="email" component="div" />
+                    </div>
+                    <div>
+                        <Field type="password" name="password" placeholder={'Password'} />
+                    </div>
+                    <div>
+                        <ErrorMessage name="password" component="div" />
+                    </div>
+                    <div>{error}</div>
+                    <div>
+                        <button type="submit" disabled={isSubmitting}>
+                            Login
+                        </button>
+                    </div>
+                    <Captcha captchaUrl = {props.captchaUrl}/>                 
+                </Form>
+            )}
+        </Formik>
     </div>
-    <div>
-        <Field placeholder = {'Password'} 
-                name = {'password'} 
-                type = {'password'} 
-                component = {Input}
-                validate={[required]}></Field>
-    </div>
-    <div>
-        <Field type = {'checkbox'} name = {'rememberMe'} component = {Input}/>remember me
-    </div>
-    {captchaUrl && <img src = {captchaUrl} alt = 'нет фото'/>}
-    {captchaUrl && <Field placeholder = {'Input captcha'} 
-                        name = {'captcha'} 
-                        type = {'captcha'} 
-                        component = {Input}
-                        validate={[required]}></Field>}
-    {error && <div className = {style.formSummaryError}>
-        {error}
-    </div>}
-    <div>
-        <button>Login</button> {/*пока кнопка в форме, она по дефолту перезагружает страницу*/}
-    </div>
-</form>
 }
 
-const LoginReduxForm = reduxForm 
-                    ({form: 'login'}) //название
-                    (LoginForm) // компанента
-
 const Login = (props) => {
-    const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememderMe, formData.captcha)
-    }// здесь логин это колбек фунция, которая диспатчит вызов санки (та что в конненкте)
+
     if (props.isAuth) {
-        return <Redirect to = {'/profile'}/>
+        return <Redirect to={'profile'} />
     }
     return <div>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit = {onSubmit} captchaUrl = {props.captchaUrl}/>
+        <LoginForm login = {props.login} captchaUrl={props.captchaUrl} />
+
     </div>
 }
 
@@ -62,4 +83,4 @@ const mapStateToProps = (state) => ({
     captchaUrl: state.auth.captchaUrl
 })
 
-export default connect (mapStateToProps, {login}) (Login);
+export default connect(mapStateToProps, { login })(Login);

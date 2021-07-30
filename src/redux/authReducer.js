@@ -1,4 +1,3 @@
-import { stopSubmit } from "redux-form";
 import { authAPI, securityAPI } from "../api/api";
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
@@ -28,6 +27,7 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuthUserData = (id, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { id, email, login, isAuth } })
 export const getCapchaUrlSuccess = (captchaUrl) => ({ type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl }})
+export const getError = (captchaUrl) => ({ type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl }})
 
 export const getAuthUserData = () => async (dispatch) => { //это thunk (санки)
     let responce = await authAPI.me()
@@ -44,11 +44,12 @@ export const login = (email, password, rememberMe, captcha) => async (dispatch) 
         dispatch(getAuthUserData());
     } else {
         let message = responce.data.messages.length > 0 ? responce.data.messages[0] : 'Some error';
-        let action = stopSubmit('login', { _error: message });
-        dispatch(action);
+        //dispatch (getErrorMessage(message))
+        //dispatch(stopSubmit('login', { _error: message }));
         if (responce.data.resultCode === 10) {
             dispatch(getCaptchaUrl())
         }
+        return Promise.reject(message) // передаём в промис ошибку, теперь промис не вернётся
     }
 }
 

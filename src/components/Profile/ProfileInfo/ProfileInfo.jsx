@@ -16,10 +16,10 @@ const ProfileInfo = ({ profile, updateStatus, status, isOwner, savePhoto, savePr
     }
 
     const onSubmit = (formData) => { // получаем данные
-        saveProfile(formData).then (() => { // если промис вернётся, то код выполнится
+        saveProfile(formData).then ((e) => { // если промис вернётся, то код выполнится
             setEditMode (false)
         }).catch(
-            () => {
+            (e) => {
                 console.log('error text')
             }
         )  //  промис не выернулся :(
