@@ -1,15 +1,63 @@
-import classes from'./NavBar.module.css'
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import Drawer from '@material-ui/core/Drawer';
+import { Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, MenuItem } from '@material-ui/core';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import FaceIcon from '@material-ui/icons/Face';
+import MessageIcon from '@material-ui/icons/Message';
+import PeopleIcon from '@material-ui/icons/People';
+import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import SettingsIcon from '@material-ui/icons/Settings';
 
-const Navbar = () => {
-    return <nav className={classes.nav}>
-        <div className = {classes.item}><NavLink to="/profile">Profile</NavLink></div>
-        <div className = {classes.item}><NavLink to="/dialogs">Messeges</NavLink></div>
-        <div className = {classes.item}><NavLink to="/users">Users</NavLink></div>
-        <div className = {classes.item}><NavLink to="">News</NavLink></div>
-        <div className = {classes.item}><NavLink to="">Music</NavLink></div>
-        <div className = {classes.item}><NavLink to="">Settings</NavLink></div>
-    </nav>
+const useStyles = makeStyles((theme) => ({
+    drawerHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: 'flex-end',
+    },
+    drawerPaper: {
+        width: `20%`,
+    },
+}))
+
+const Navbar = (props) => {
+    const styleUI = useStyles();
+
+    return <Drawer className={styleUI.drawer}
+        onClose={() => props.setDrawerOpen(false)}
+        onOpen={() => props.setDrawerOpen(true)}
+        open={props.isDrawerOpen}
+        variant="persistent"
+        classes={{
+            paper: styleUI.drawerPaper,
+        }}>
+        <IconButton className={styleUI.drawerHeader}
+            onClick={() => props.setDrawerOpen(false)}>
+            <ChevronLeftIcon />
+        </IconButton>
+        <Divider />
+        <List>
+            {modListItem(FaceIcon, '/profile', 'Profile')}
+            {modListItem(MessageIcon, '/dialogs', 'Messeges')}
+            {modListItem(PeopleIcon, '/users', 'Users')}
+            {modListItem(AccessibilityNewIcon, '/profile', 'News')}
+            {modListItem(MusicNoteIcon, '/profile', 'Music')}
+            {modListItem(SettingsIcon, '/profile', 'Settings')}
+        </List>
+    </Drawer>
 }
-
 export default Navbar
+
+const modListItem = (Component, link, text) => {
+    return (
+    <ListItem button component={NavLink} to={link}>
+        <ListItemIcon>
+            <Component/>
+        </ListItemIcon>
+        <ListItemText primary={text}/>
+    </ListItem>
+    )
+}

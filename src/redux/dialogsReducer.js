@@ -27,11 +27,12 @@ const dialogsReducer = (state = initialState, action) => {
             };
         case SEND_MESSAGE:
             let body = action.newMessageBody; //копируем сохранённый текст, во временную переменную
+            
             return {
                 ...state,
-                messages: [...state.messages, { id: 6, message: body }] //отправляем текст в базу
-            }; //типо в начале передаём все известные переменные, а последней назначаем то что нам нужно
-
+                messages: [...state.messages, { id: 4, message: body }], //отправляем текст в базу
+                //типо в начале передаём все известные переменные, а последней назначаем то что нам нужно
+            };
         default:
             return state;
     }

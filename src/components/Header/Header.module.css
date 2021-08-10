@@ -1,15 +1,16 @@
 .header {
     grid-area: h;
-    background-color: rgb(247, 238, 238);
-  }
-  
-.header img {
-    width: 80px;
-    margin-left: 10.6%;
-    margin-top: 0.5%;
 }
 
 .loginBlock {
-  float: right;
-  
+  position: absolute;
+  right: 0;
+}
+
+.loginLink {
+  color: white;
+}
+
+.loginLink:hover {
+  color: rgb(219, 216, 216);
 }

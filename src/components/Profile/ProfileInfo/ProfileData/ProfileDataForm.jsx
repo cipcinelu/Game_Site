@@ -1,17 +1,45 @@
-import { Field, reduxForm } from "redux-form"
 import { Input, Textarea } from "../../../common/FormsControls/FormsControls"
 import style from '../../../common/FormsControls/FormsControls.module.css'
+import { ErrorMessage, Field, Form, Formik } from "formik"
+import { validateTextArea } from "../../../../utils/validators/validators"
 
-const ProfileDataForm = ({ profile, handleSubmit,  error }) => {
-    return <form onSubmit={handleSubmit}> {/* если форма действительна, он вызовет props.onSubmit(data) 
-                                        с содержимым формы данных.  */}
+const ProfileDataForm = ({ profile, error, ...props }) => {
+    return (<Formik
+        initialValues={{ fullName: profile.fullName,
+                        lookingForAJobDescription: profile.lookingForAJobDescription,
+                        aboutMe: profile.aboutMe,
+                        contacts: profile.contacts}}
+        validate={values => {
+            const errors = {}
+            const textEmail = /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/;
+            if (!values.fullName) {
+                errors.fullName = 'Required'
+            }
+
+            for (let link in values.contacts) {
+                if (!!values.contacts[link]) {
+                    if (!textEmail.test (values.contacts[link])) {
+                        errors.contacts = 'Wronk link'
+                    }
+                }
+            }
+            return errors
+        }}        
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+            console.log (values)
+            props.onSubmit(values)
+            setSubmitting(false);
+            resetForm();
+        }}>
+{({ isSubmitting, isValid }) => ( // возвращает true когда submission в прогрессе
+<Form>
         <div>
             <b>Full name</b>: {
                 <div>
                     <Field name='fullName'
-                        component={Input}
-                        validate={[]}
-                        placeholder='Full name'></Field>
+                        type="fullName" 
+                        placeholder='Full name'></Field>  
+                    <ErrorMessage name="fullName" component="div" />
                 </div>
             }
         </div>
@@ -20,16 +48,14 @@ const ProfileDataForm = ({ profile, handleSubmit,  error }) => {
             <div>
                 <Field type={'checkbox'}
                     name={'lookingForAJob'}
-                    component={Input}
-                    validate={[]}></Field>
+                ></Field>
             </div>
         </div>
         <div>
             <b>My professional skills</b>:{
                 <div>
                     <Field name='lookingForAJobDescription'
-                        component={Textarea}
-                        validate={[]}
+                        type="lookingForAJobDescription" 
                         placeholder='My professional skills'></Field>
                 </div>
             }
@@ -37,8 +63,7 @@ const ProfileDataForm = ({ profile, handleSubmit,  error }) => {
         <div>
             <div><b>About me</b>: </div>
             <Field name='aboutMe'
-                component={Textarea}
-                validate={[]}
+                type="aboutMe" 
                 placeholder='About me'></Field>
         </div>
         <div>
@@ -46,20 +71,21 @@ const ProfileDataForm = ({ profile, handleSubmit,  error }) => {
             {Object.keys(profile.contacts).map(key => { // возвращает имена перечисляемых свойств
                 return <div key = {key}>
                     <b>{key}: 
+                    <div>
                     <Field name= {'contacts.' + key}
-                        component={Input}
-                        validate={[]}
-                        placeholder={key}></Field>
+                        type={'contacts.' + key}
+                        placeholder={key}
+                        ></Field>
+                    </div>
                     </b>
                 </div>
-            })}
+            })
+            }
+            <ErrorMessage name='contacts' component="div"/>                 
         </div>
-        <button>save</button>
-        {error && <div className = {style.formSummaryError}>
-        {error}
-    </div>}
-    </form>
-}
+        <button type="submit" disabled={isSubmitting}>save</button>
+</Form>)}
+    </Formik>
+)}
 
-const ProfileDataReduxForm = reduxForm({ form: 'edit-profile' })(ProfileDataForm)
-export default ProfileDataReduxForm
+export default ProfileDataForm

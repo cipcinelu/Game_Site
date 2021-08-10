@@ -2,12 +2,12 @@ import style from './profileInfo.module.css'
 import withoutPhoto from '../../../img/withoutPhoto.png'
 import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks'
 import { useState } from 'react'
-import ProfileDataReduxForm from './ProfileData/ProfileDataForm'
-import {ProfileData} from './ProfileData/ProfileData'
+import ProfileDataForm from './ProfileData/ProfileDataForm'
+import { ProfileData } from './ProfileData/ProfileData'
 
 const ProfileInfo = ({ profile, updateStatus, status, isOwner, savePhoto, saveProfile }) => {
 
-    let [editMode, setEditMode] = useState (false);
+    let [editMode, setEditMode] = useState(false);
 
     const onMainPhotoSelected = (e) => {
         if (e.target.files.length) {
@@ -16,8 +16,8 @@ const ProfileInfo = ({ profile, updateStatus, status, isOwner, savePhoto, savePr
     }
 
     const onSubmit = (formData) => { // получаем данные
-        saveProfile(formData).then ((e) => { // если промис вернётся, то код выполнится
-            setEditMode (false)
+        saveProfile(formData).then((e) => { // если промис вернётся, то код выполнится
+            setEditMode(false)
         }).catch(
             (e) => {
                 console.log('error text')
@@ -31,14 +31,16 @@ const ProfileInfo = ({ profile, updateStatus, status, isOwner, savePhoto, savePr
                 <img className={style.avatar}
                     src={profile.photos.large || withoutPhoto}
                     alt='Аватарки нет :(' />
-                {isOwner && 
-                <input type='file' onChange={onMainPhotoSelected} />}
+                {isOwner &&
+                    <input type='file' onChange={onMainPhotoSelected} />}
             </div>
-            {editMode 
-            ? <ProfileDataReduxForm initialValues = {profile} profile={profile} onSubmit = {onSubmit}/>
-            : <ProfileData profile={profile} 
-                                    isOwner = {isOwner}
-                                    goToEditMode = {() => {setEditMode (true)}}/>}
+            <div className={style.profileData}>
+                {editMode
+                    ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
+                    : <ProfileData profile={profile}
+                                isOwner={isOwner}
+                                goToEditMode={() => { setEditMode(true) }} />}
+            </div>
         </div>
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
     </div>

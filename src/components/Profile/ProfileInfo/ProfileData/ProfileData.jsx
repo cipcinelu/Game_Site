@@ -1,8 +1,6 @@
-import style from './../profileInfo.module.css'
 
 export const ProfileData = ({ profile, isOwner, goToEditMode }) => {
-    
-    return <div className={style.profileData}>
+    return <div>
         <div>
             <b>Name</b>: {profile.fullName}
         </div>
