@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './Users.module.css'
 import Paginator from '../common/Paginator/Paginator';
 import User from './User/User';
+import Preloader from '../common/Preloader/Preloader';
 
 const Users = (props) => {
 
@@ -10,6 +11,7 @@ const Users = (props) => {
             totalItemsCount={props.totalUsersCount}
             onPageChanged={props.onPageChanged}
             pageSize={props.pageSize} />
+        {props.isFetching ? <Preloader/>: null}
         <div>
             {
                 props.users.map(u => <User key={u.id}

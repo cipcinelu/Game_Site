@@ -31,7 +31,7 @@ const App = (props) => {
   }) // выполняется в момент изменения [этой] переменной
 
   if (!props.initialized) {
-    return <Preloader />
+    return <Preloader/>
   }
   return (
     <div className="app-wrapper">
