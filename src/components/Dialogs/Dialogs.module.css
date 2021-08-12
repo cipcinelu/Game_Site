@@ -4,18 +4,13 @@
     grid-template-areas:
     "d m"
     "d p";
-    width: 80%
+    margin-top: 5%;
 }
 
 
 .dialogsItems {
     padding: 10px;
     grid-area: d;
-}
-
-.messager {
-    padding: 10px;
-    grid-area: m;
 }
 
 .polevvoda {

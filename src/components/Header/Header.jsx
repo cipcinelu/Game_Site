@@ -9,7 +9,9 @@ import Navbar from '../NavBar/NavBar';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-
+  photo: {
+    width: '70px'
+  },
   logo: {
     width: `70px`,
 
@@ -46,10 +48,11 @@ const Header = (props) => {
             <Navbar isDrawerOpen = {isDrawerOpen} 
                     setDrawerOpen = {setDrawerOpen}/>
             
-            <img src={logo} alt="LOGO" className = {isDrawerOpen 
-                                                    ? styleUI.logoActive
-                                                    : styleUI.logo}/>
-
+            <NavLink to = '/profile' className = {isDrawerOpen 
+                                          ? styleUI.logoActive
+                                          : styleUI.logo}>
+            <img src={logo} alt="LOGO" className = {styleUI.photo}/>
+            </NavLink>
             <div className={style.loginBlock}>
                 {props.isAuth
                     ? <div>{props.login + ' '}

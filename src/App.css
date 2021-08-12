@@ -6,8 +6,6 @@
 
   grid-template-rows: 60px 1fr;
   grid-template-columns: 3fr 10fr;
-  background-color:lavender;
-
 }
 
 .app-wrapper-content {
@@ -16,12 +14,15 @@
     margin-right: 10%;
 }
 
-a{
+/* a{
   text-decoration: none;
   color: black;
 }
 
 a:hover {
   color: rgb(99, 99, 99);
-}
+} */
 
+.main {
+  background-color:black;
+}

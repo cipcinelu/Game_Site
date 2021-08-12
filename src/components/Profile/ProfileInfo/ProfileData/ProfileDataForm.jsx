@@ -1,21 +1,27 @@
-import { Input, Textarea } from "../../../common/FormsControls/FormsControls"
-import style from '../../../common/FormsControls/FormsControls.module.css'
-import { ErrorMessage, Field, Form, Formik } from "formik"
-import { validateTextArea } from "../../../../utils/validators/validators"
+import { ErrorMessage, Field, Form, Formik, useFormik } from "formik"
+import { Box, Button, Checkbox, makeStyles, TextField } from "@material-ui/core"
+
+const useStyles = makeStyles(() => ({
+    button: {
+      marginTop: '2%',
+    },
+}));
+
 
 const ProfileDataForm = ({ profile, error, ...props }) => {
-    return (<Formik
-        initialValues={{ fullName: profile.fullName,
+    const formik = useFormik({
+        initialValues: { fullName: profile.fullName,
+                        lookingForAJob: profile.lookingForAJob,
                         lookingForAJobDescription: profile.lookingForAJobDescription,
                         aboutMe: profile.aboutMe,
-                        contacts: profile.contacts}}
-        validate={values => {
+                        contacts: profile.contacts
+        },
+        validate: (values) => {
             const errors = {}
             const textEmail = /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/;
             if (!values.fullName) {
                 errors.fullName = 'Required'
             }
-
             for (let link in values.contacts) {
                 if (!!values.contacts[link]) {
                     if (!textEmail.test (values.contacts[link])) {
@@ -24,68 +30,78 @@ const ProfileDataForm = ({ profile, error, ...props }) => {
                 }
             }
             return errors
-        }}        
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        },
+        onSubmit: (values, { setSubmitting, resetForm }) => {
             console.log (values)
             props.onSubmit(values)
             setSubmitting(false);
             resetForm();
-        }}>
-{({ isSubmitting, isValid }) => ( // возвращает true когда submission в прогрессе
-<Form>
+    },
+})
+
+    const styleUI = useStyles()
+
+    return (
+//({ isSubmitting, isValid }) => ( // возвращает true когда submission в прогрессе
+<form onSubmit={formik.handleSubmit}>
         <div>
-            <b>Full name</b>: {
-                <div>
-                    <Field name='fullName'
-                        type="fullName" 
-                        placeholder='Full name'></Field>  
-                    <ErrorMessage name="fullName" component="div" />
-                </div>
-            }
-        </div>
-        <div>
-            <b>Looking for a job</b>:
+         {
             <div>
-                <Field type={'checkbox'}
-                    name={'lookingForAJob'}
-                ></Field>
+                <TextField label = 'Full Name'
+                        name='fullName'
+                        id="fullName" 
+                        value={formik.values.fullName}
+                        onChange={formik.handleChange}
+                        error = {formik.touched.fullName && Boolean(formik.errors.fullName)}
+                        helperText={formik.touched.fullName && formik.errors.fullName}/>
             </div>
-        </div>
-        <div>
-            <b>My professional skills</b>:{
-                <div>
-                    <Field name='lookingForAJobDescription'
-                        type="lookingForAJobDescription" 
-                        placeholder='My professional skills'></Field>
-                </div>
             }
         </div>
+
         <div>
-            <div><b>About me</b>: </div>
-            <Field name='aboutMe'
-                type="aboutMe" 
-                placeholder='About me'></Field>
+            <Box component = "b">Looking for a job</Box>:
+            <Checkbox name={'lookingForAJob'}
+                    id = 'lookingForAJob'
+                    checked={formik.values.lookingForAJob}
+                    onChange={formik.handleChange}/>
         </div>
         <div>
-            <b>Contacts</b>:
+                <TextField name='lookingForAJobDescription'
+                    id="lookingForAJobDescription" 
+                    label = 'My professional skills'
+                    value={formik.values.lookingForAJobDescription}
+                    onChange={formik.handleChange}/>
+        </div>
+        <div>
+            <TextField name='aboutMe'
+                id="aboutMe" 
+                label = 'About me'
+                value={formik.values.aboutMe}
+                onChange={formik.handleChange}></TextField>
+        </div>
+        <div>
+            <Box component = "b">Contacts</Box>:
             {Object.keys(profile.contacts).map(key => { // возвращает имена перечисляемых свойств
                 return <div key = {key}>
-                    <b>{key}: 
-                    <div>
-                    <Field name= {'contacts.' + key}
-                        type={'contacts.' + key}
-                        placeholder={key}
-                        ></Field>
-                    </div>
-                    </b>
+                    <TextField name= {'contacts.' + key}
+                        id={'contacts.' + key}
+                        label = {key}
+                        value={formik.values.contacts[key]}
+                        onChange={formik.handleChange}
+                        error = {formik.touched.contacts && Boolean(formik.errors.contacts)}
+                        helperText={formik.touched.contacts && formik.errors.contacts}>
+                    </TextField>
                 </div>
-            })
-            }
-            <ErrorMessage name='contacts' component="div"/>                 
+            })} 
         </div>
-        <button type="submit" disabled={isSubmitting}>save</button>
-</Form>)}
-    </Formik>
+
+        <Button variant = 'contained' 
+                type="submit"
+                //disabled={isSubmitting}
+                color="primary"
+                size = 'small'
+                className = {styleUI.button}>save</Button>
+</form>
 )}
 
 export default ProfileDataForm

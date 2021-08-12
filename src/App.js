@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import { useEffect } from 'react';
 import React from 'react';
 import { withSuspense } from './HOC/withSuspense';
+import style from './App.css'
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
@@ -59,7 +60,7 @@ const AppContainer = compose(
 export const MainApp = (props) => {
   return <HashRouter>   {/* BrowserRouter — следует использовать когда вы обрабатываете на сервере динамические запросы, а HashRouter используйте когда у вас статический веб сайт. */}
      <Provider store={store}  > {/*создаёт "контекст" */}
-      <AppContainer />
+      <AppContainer className = ''/>
     </Provider>
   </HashRouter>
 }

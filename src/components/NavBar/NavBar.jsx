@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = (props) => {
     const styleUI = useStyles();
 
-    return <Drawer className={styleUI.drawer}
+    return <Drawer
         onClose={() => props.setDrawerOpen(false)}
         onOpen={() => props.setDrawerOpen(true)}
         open={props.isDrawerOpen}
@@ -34,11 +34,13 @@ const Navbar = (props) => {
         classes={{
             paper: styleUI.drawerPaper,
         }}>
-        <IconButton className={styleUI.drawerHeader}
-            onClick={() => props.setDrawerOpen(false)}>
-            <ChevronLeftIcon />
-        </IconButton>
-        <Divider />
+        <div className={styleUI.drawerHeader}>
+            <IconButton 
+                onClick={() => props.setDrawerOpen(false)}>
+                <ChevronLeftIcon />
+            </IconButton>
+        </div>
+        <Divider/>
         <List>
             {modListItem(FaceIcon, '/profile', 'Profile')}
             {modListItem(MessageIcon, '/dialogs', 'Messeges')}
@@ -53,11 +55,11 @@ export default Navbar
 
 const modListItem = (Component, link, text) => {
     return (
-    <ListItem button component={NavLink} to={link}>
-        <ListItemIcon>
-            <Component/>
-        </ListItemIcon>
-        <ListItemText primary={text}/>
-    </ListItem>
+        <ListItem button component={NavLink} to={link}>
+            <ListItemIcon>
+                <Component />
+            </ListItemIcon>
+            <ListItemText primary={text} />
+        </ListItem>
     )
 }
