@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik, useFormik } from "formik"
+import { useFormik } from "formik"
 import { Box, Button, Checkbox, makeStyles, TextField } from "@material-ui/core"
 
 const useStyles = makeStyles(() => ({
@@ -14,7 +14,16 @@ const ProfileDataForm = ({ profile, error, ...props }) => {
                         lookingForAJob: profile.lookingForAJob,
                         lookingForAJobDescription: profile.lookingForAJobDescription,
                         aboutMe: profile.aboutMe,
-                        contacts: profile.contacts
+                        contacts: {
+                            github: profile.github,
+                            vk: profile.vk,
+                            facebook: profile.facebook,
+                            instagram: profile.instagram,
+                            twitter: profile.twitter,
+                            website:profile.website,
+                            youtube: profile.youtube,
+                            mainLink:profile.mainLink,
+                        }
         },
         validate: (values) => {
             const errors = {}
@@ -26,13 +35,13 @@ const ProfileDataForm = ({ profile, error, ...props }) => {
                 if (!!values.contacts[link]) {
                     if (!textEmail.test (values.contacts[link])) {
                         errors.contacts = 'Wronk link'
+                        console.log(errors.contacts)
                     }
                 }
             }
             return errors
         },
         onSubmit: (values, { setSubmitting, resetForm }) => {
-            console.log (values)
             props.onSubmit(values)
             setSubmitting(false);
             resetForm();
@@ -43,6 +52,7 @@ const ProfileDataForm = ({ profile, error, ...props }) => {
 
     return (
 //({ isSubmitting, isValid }) => ( // возвращает true когда submission в прогрессе
+
 <form onSubmit={formik.handleSubmit}>
         <div>
          {
@@ -66,7 +76,7 @@ const ProfileDataForm = ({ profile, error, ...props }) => {
                     onChange={formik.handleChange}/>
         </div>
         <div>
-                <TextField name='lookingForAJobDescription'
+            <TextField name='lookingForAJobDescription'
                     id="lookingForAJobDescription" 
                     label = 'My professional skills'
                     value={formik.values.lookingForAJobDescription}

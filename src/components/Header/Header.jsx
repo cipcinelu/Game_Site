@@ -7,14 +7,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useState } from 'react';
 import Navbar from '../NavBar/NavBar';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Svg } from '../svg';
 
 const useStyles = makeStyles((theme) => ({
-  photo: {
-    width: '70px'
-  },
   logo: {
-    width: `70px`,
-
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -51,7 +47,7 @@ const Header = (props) => {
             <NavLink to = '/profile' className = {isDrawerOpen 
                                           ? styleUI.logoActive
                                           : styleUI.logo}>
-            <img src={logo} alt="LOGO" className = {styleUI.photo}/>
+            <Svg id = 'jobstik'></Svg>
             </NavLink>
             <div className={style.loginBlock}>
                 {props.isAuth

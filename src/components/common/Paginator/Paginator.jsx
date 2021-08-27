@@ -2,6 +2,8 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import React, { useState } from 'react'
 import styles from './Paginator.module.css'
 
+
+
 const Paginator = (props, { portionSize = 10 }) => {
     let pagesCount = Math.ceil((props.totalItemsCount) / props.pageSize);
 
@@ -16,8 +18,11 @@ const Paginator = (props, { portionSize = 10 }) => {
     let rightPortionPageNumber = portionNumber * portionSize;
 
     return <div className={styles.paginator}>
-        {portionNumber > 1 &&
-        <Button variant="contained" onClick={() => { setPortionNumber(portionNumber - 1) }}>Prev</Button>}
+        <Button variant="contained" 
+            onClick={() => { setPortionNumber(portionNumber - 1) }}
+            disabled = {portionNumber <= 1}>
+                Prev
+        </Button>
         <ButtonGroup variant="text" 
                 aria-label="text primary button group" >
             {pages
@@ -28,11 +33,11 @@ const Paginator = (props, { portionSize = 10 }) => {
                         onClick={(e) => { props.onPageChanged(p) }}>{p} </Button> //это обработчик событий
                 })}
         </ButtonGroup>
-        {portionCount > portionNumber &&
         <Button variant="contained" 
-            onClick={() => { setPortionNumber(portionNumber + 1) }}>
+                onClick={() => { setPortionNumber(portionNumber + 1) }}
+                disabled = {portionCount <= portionNumber}>
             Next
-        </Button>}
+        </Button>
     </div>
 }
 export default Paginator;

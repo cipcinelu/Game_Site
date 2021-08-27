@@ -1,5 +1,4 @@
 import React from 'react'
-import style from '../Users.module.css'
 import userPhoto from '../../../img/withoutPhoto.png'
 import { NavLink } from 'react-router-dom';
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, makeStyles, Typography } from '@material-ui/core';

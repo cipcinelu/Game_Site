@@ -1,11 +1,10 @@
 .descriptionBlock {
-    display: flex;
     margin-top: 2%;
 }
 
 .profileData {
-    margin-left: 2%;
+    /* margin-left: 2%;
     padding: 3%;
-    width: 70%;
-    background-color: white;
+    width: 70%; */
+    /* background-color: white; */
 }

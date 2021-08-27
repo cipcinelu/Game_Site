@@ -5,8 +5,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import FaceIcon from '@material-ui/icons/Face';
 import MessageIcon from '@material-ui/icons/Message';
 import PeopleIcon from '@material-ui/icons/People';
-import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,8 +43,6 @@ const Navbar = (props) => {
             {modListItem(FaceIcon, '/profile', 'Profile')}
             {modListItem(MessageIcon, '/dialogs', 'Messeges')}
             {modListItem(PeopleIcon, '/users', 'Users')}
-            {modListItem(AccessibilityNewIcon, '/profile', 'News')}
-            {modListItem(MusicNoteIcon, '/profile', 'Music')}
             {modListItem(SettingsIcon, '/profile', 'Settings')}
         </List>
     </Drawer>

@@ -1,4 +1,3 @@
-import MyPostsContainer from './MyPosts/MyPostsContainer'
 import './Profile'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import Preloader from '../common/Preloader/Preloader';

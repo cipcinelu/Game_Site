@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import React from 'react';
 import { withSuspense } from './HOC/withSuspense';
 import style from './App.css'
+import { NotFound } from './components/NotFound';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
@@ -44,7 +45,7 @@ const App = (props) => {
         <Route path='/profile/:userId?' render={withSuspense (ProfileContainer)}/> {/*:userId - это объявелние параметра, для withRoute, вопрос обозначает нестогий параметр*/}
         <Route path='/users' render={() => <UsersContainer />}></Route>
         <Route path='/login' render={() => <Login />}></Route>
-        <Route path='/*' render={() => <div>404 NOT FOUND</div>}></Route>
+        <Route path='/*' render={() => <NotFound/>}></Route>
         </Switch>
       </div>
     </div>

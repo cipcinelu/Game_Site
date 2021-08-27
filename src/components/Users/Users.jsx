@@ -7,10 +7,6 @@ import Preloader from '../common/Preloader/Preloader';
 const Users = (props) => {
 
     return <div className={styles.pageUser}>
-        <Paginator currentPage={props.currentPage}
-            totalItemsCount={props.totalUsersCount}
-            onPageChanged={props.onPageChanged}
-            pageSize={props.pageSize} />
         {props.isFetching ? <Preloader/>: null}
         <div>
             {
@@ -21,6 +17,10 @@ const Users = (props) => {
                     unfollow={props.unfollow} />)
             }
         </div>
+        <Paginator currentPage={props.currentPage}
+            totalItemsCount={props.totalUsersCount}
+            onPageChanged={props.onPageChanged}
+            pageSize={props.pageSize} />
     </div>
 }
 

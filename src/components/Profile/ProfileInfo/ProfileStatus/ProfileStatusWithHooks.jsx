@@ -1,38 +1,69 @@
+import { CardContent, TextField } from '@material-ui/core';
+import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
 
 const ProfileStatusWithHooks = (props) => {
-    
-    // let stateWithSetState = useState (false); // создаём значение для локального стейта
-    // let editMode = stateWithSetState[0]; // значение
-    // let setEditMode = stateWithSetState[1] // функция меняющая значение
 
-    let [editMode, setEditMode] = useState (false); // тоже самое только короче
-    let [status, setStatus] = useState (props.status);
+    let [editMode, setEditMode] = useState(false); // тоже самое только короче
+    let [status, setStatus] = useState(props.status);
     
-    useEffect ( () => { // выполнит функцию после отрисовки
+    useEffect(() => { // выполнит функцию после отрисовки
         setStatus(props.status)
     }, [props.status]) // выполняется в момент изменения [этой] переменной
 
-    const activateEditMode = () => {setEditMode (true)};
+    const activateEditMode = () => {
+        if (props.isOwner) {
+            setEditMode(true)
+        }
+    };
     const deactivateEditMode = () => {
-        setEditMode (false)
+        setEditMode(false)
         props.updateStatus(status)
     };
-    const onStatusChange = (e) => {setStatus(e.currentTarget.value)} 
+    const onStatusChange = (e) => { setStatus(e.currentTarget.value) }
+    
+    const formik = useFormik({
+        initialValues: {
+          status:status
+        },
+        validate: (values) => {
+            const errors = {}
+
+            if (values.status.length > 20) {
+                errors.status = 'This text is too long'
+            }
+            return errors
+        },
+        onSubmit: (values) => {
+            setStatus (values.status)
+            deactivateEditMode()
+        }
+    });
 
     return <div>
         {!editMode &&
-            <div className="div">
-                <span onClick = {activateEditMode}>{props.status || '---'}</span>
-            </div>
+            <CardContent>
+                <span onClick={activateEditMode}>{status || '---'}</span>
+            </CardContent>
         }
         {editMode &&
-            <div className="div">
-                <input onChange = {onStatusChange} 
-                        onBlur = {deactivateEditMode} 
-                        autoFocus = {true}
-                        value = {status}/>
-            </div>
+            <CardContent>
+                <form onSubmit={formik.handleSubmit}>
+                    <TextField 
+                        id="status"
+                        name="status"
+                        onBlur={formik.handleSubmit}
+                        onChange = {e => {
+                            formik.handleChange(e)
+                            setStatus (formik.values.status)}
+                        }
+                        autoFocus={true}
+                        value={formik.values.status} 
+                        error={formik.touched.status && Boolean(formik.errors.status)}
+                        helperText={formik.touched.status && formik.errors.status}
+                    />
+                </form>
+            </CardContent>
         }
     </div>
 }
