@@ -41,7 +41,7 @@ const App = (props) => {
       <div className='app-wrapper-content'>
         <Switch>
         <Route exact path='/' render={()=> <Redirect to='/profile'/>} />
-        <Route path='/dialogs' render={withSuspense (DialogsContainer)} />
+        <Route path='/dialogs/:userId?' render={withSuspense (DialogsContainer)} />
         <Route path='/profile/:userId?' render={withSuspense (ProfileContainer)}/> {/*:userId - это объявелние параметра, для withRoute, вопрос обозначает нестогий параметр*/}
         <Route path='/users' render={() => <UsersContainer />}></Route>
         <Route path='/login' render={() => <Login />}></Route>

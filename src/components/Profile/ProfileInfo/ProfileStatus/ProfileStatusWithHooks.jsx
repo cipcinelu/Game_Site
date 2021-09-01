@@ -55,10 +55,10 @@ const ProfileStatusWithHooks = (props) => {
                         onBlur={formik.handleSubmit}
                         onChange = {e => {
                             formik.handleChange(e)
-                            setStatus (formik.values.status)}
+                            onStatusChange(e)}
                         }
                         autoFocus={true}
-                        value={formik.values.status} 
+                        value={props.status} 
                         error={formik.touched.status && Boolean(formik.errors.status)}
                         helperText={formik.touched.status && formik.errors.status}
                     />

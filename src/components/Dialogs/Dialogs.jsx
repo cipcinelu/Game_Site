@@ -1,19 +1,52 @@
 import Message from './Message/Message'
 import style from './Dialogs.module.css'
 import FormikTextArea from '../common/FormikControls/FormikTextArea';
-import { Button, ButtonGroup } from '@material-ui/core';
+import { Button, ButtonGroup, TextField } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react'
+import { useEffect } from 'react';
+import { useFormik } from 'formik';
 
 const Dialogs = (props) => {
 
+    let [id, setId] = useState(1)
     let state = props.dialogsPage;
+
+    useEffect(() => {
+        let id = props.match.params.userId
+        if (!id) {
+            setId(0)
+        }
+        else setId(id)
+    }, [props.match.params.userId])
+
     let dialogsElement = state.dialogs.map(d =>
         <Button
+            key={d.id}
             component={NavLink}
             to={'/dialogs/' + d.id}>
             {d.name}
         </Button>)
-    let messagesElement = state.messages.map(m => <Message message={m.message} key={m.id} />)
+    let messagesElement = state.messages[`id${id}`].map(m =>
+        <Message message={m.message} key={m.id} />)
+
+    const formik = useFormik({
+        initialValues: {
+            message: ''
+        },
+        validate: (values) => {
+            const errors = {}
+
+            if (values.message.length > 100) {
+                errors.message = 'This text is too long'
+            }
+            return errors
+        },
+        onSubmit: (values) => {
+            //console.log(state.messages[`id${id}`])
+            props.sendMessage(values.message)
+        }
+    });
 
     return <div className={style.dialogs}>
         <div className={style.dialogsItems}>
@@ -27,8 +60,16 @@ const Dialogs = (props) => {
         <div className={style.messager}>
             {messagesElement}
         </div>
-        
-        <FormikTextArea submit={props.sendMessage} />
+        <form onSubmit={formik.handleSubmit}>
+            <TextField label = 'Message'
+                        name='message'
+                        id="message" 
+                        type = 'message'
+                        value={formik.values.message}
+                        onChange={formik.handleChange}
+                        error = {formik.touched.message && Boolean(formik.errors.message)}
+                        helperText={formik.touched.message && formik.errors.message}/>
+        </form>
     </div>
 }
 
