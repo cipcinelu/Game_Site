@@ -58,7 +58,7 @@ const ProfileStatusWithHooks = (props) => {
                             onStatusChange(e)}
                         }
                         autoFocus={true}
-                        value={props.status} 
+                        value={status} 
                         error={formik.touched.status && Boolean(formik.errors.status)}
                         helperText={formik.touched.status && formik.errors.status}
                     />

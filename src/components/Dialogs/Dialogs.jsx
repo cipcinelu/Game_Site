@@ -20,6 +20,10 @@ const Dialogs = (props) => {
         else setId(id)
     }, [props.match.params.userId])
 
+    let handleSubmit = (event) => {
+        console.log(event.target.value)
+    };
+
     let dialogsElement = state.dialogs.map(d =>
         <Button
             key={d.id}
@@ -27,7 +31,7 @@ const Dialogs = (props) => {
             to={'/dialogs/' + d.id}>
             {d.name}
         </Button>)
-    let messagesElement = state.messages[`id${id}`].map(m =>
+    let messagesElement = state.messages[id].map(m =>
         <Message message={m.message} key={m.id} />)
 
     const formik = useFormik({
@@ -36,15 +40,19 @@ const Dialogs = (props) => {
         },
         validate: (values) => {
             const errors = {}
-
+            if (!values.message.length) {
+                errors.message = 'Message is empty'
+            }
             if (values.message.length > 100) {
                 errors.message = 'This text is too long'
             }
             return errors
         },
         onSubmit: (values) => {
-            //console.log(state.messages[`id${id}`])
-            props.sendMessage(values.message)
+            props.sendMessage(id, values.message)
+            values.message = ''
+            console.log(values.message)
+            //console.log(e.target.values)
         }
     });
 
@@ -60,16 +68,17 @@ const Dialogs = (props) => {
         <div className={style.messager}>
             {messagesElement}
         </div>
-        <form onSubmit={formik.handleSubmit}>
+        {id>0 && <form onSubmit={formik.handleSubmit}>
             <TextField label = 'Message'
                         name='message'
                         id="message" 
                         type = 'message'
-                        value={formik.values.message}
+                        fullWidth
+                        value = {formik.values.message}
                         onChange={formik.handleChange}
                         error = {formik.touched.message && Boolean(formik.errors.message)}
                         helperText={formik.touched.message && formik.errors.message}/>
-        </form>
+        </form>}
     </div>
 }
 

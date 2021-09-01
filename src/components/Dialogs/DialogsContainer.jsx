@@ -13,8 +13,8 @@ let mapStateToProps = (state) => { //отвечает за данные
 
 let mapDispatchToProps = (dispatch) => { //отвечает за отправление данных через коллбеки
     return {
-        sendMessage: (newMessageBody) => {
-            dispatch(sendMessageCreator(newMessageBody));
+        sendMessage: (id, message) => {
+            dispatch(sendMessageCreator(id, message));
         },
     }
 }
