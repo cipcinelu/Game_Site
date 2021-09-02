@@ -1,4 +1,3 @@
-import logo from '../../img/jobstik.png'
 import style from './Header.module.css'
 import { NavLink } from 'react-router-dom'
 import { AppBar, Button, IconButton, Toolbar } from '@material-ui/core'
@@ -6,7 +5,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useState } from 'react';
 import Navbar from '../NavBar/NavBar';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Svg } from '../svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,8 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },  
 }))
 
+let getWindowDimensions = () => {
+  const { innerWidth: width } = window;
+  if (width > 640) return true
+  else return false
+}
 const Header = (props) => {
-    const [isDrawerOpen, setDrawerOpen] = useState(true);
+    const [isDrawerOpen, setDrawerOpen] = useState(getWindowDimensions());
     const styleUI = useStyles();
 
     return <AppBar className={style.header}>

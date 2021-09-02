@@ -29,7 +29,7 @@ export const ProfileData = ({ profile, isOwner, goToEditMode }) => {
                         contactTitle={key}
                         contactValue={profile.contacts[key]}
                          />
-                        } } 
+                        }} 
                     )}
                 </div>}
         </div>

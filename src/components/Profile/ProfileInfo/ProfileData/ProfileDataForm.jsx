@@ -14,26 +14,17 @@ const ProfileDataForm = ({ profile, error, ...props }) => {
                         lookingForAJob: profile.lookingForAJob,
                         lookingForAJobDescription: profile.lookingForAJobDescription,
                         aboutMe: profile.aboutMe,
-                        contacts: {
-                            github: profile.github,
-                            vk: profile.vk,
-                            facebook: profile.facebook,
-                            instagram: profile.instagram,
-                            twitter: profile.twitter,
-                            website:profile.website,
-                            youtube: profile.youtube,
-                            mainLink:profile.mainLink,
-                        }
+                        contacts: profile.contacts,
         },
         validate: (values) => {
             const errors = {}
-            const textEmail = /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/;
+            const textLink= /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!])*)?/;
             if (!values.fullName) {
                 errors.fullName = 'Required'
             }
             for (let link in values.contacts) {
                 if (!!values.contacts[link]) {
-                    if (!textEmail.test (values.contacts[link])) {
+                    if (!textLink.test (values.contacts[link])) {
                         errors.contacts = 'Wronk link'
                         console.log(errors.contacts)
                     }

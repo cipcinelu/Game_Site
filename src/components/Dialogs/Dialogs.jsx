@@ -1,10 +1,8 @@
 import Message from './Message/Message'
 import style from './Dialogs.module.css'
-import FormikTextArea from '../common/FormikControls/FormikTextArea';
 import { Button, ButtonGroup, TextField } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import { useFormik } from 'formik';
 
 const Dialogs = (props) => {
@@ -19,11 +17,7 @@ const Dialogs = (props) => {
         }
         else setId(id)
     }, [props.match.params.userId])
-
-    let handleSubmit = (event) => {
-        console.log(event.target.value)
-    };
-
+    
     let dialogsElement = state.dialogs.map(d =>
         <Button
             key={d.id}

@@ -1,5 +1,4 @@
 import './App.css';
-import Navbar from './components/NavBar/NavBar';
 import { HashRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer\'';
@@ -13,7 +12,6 @@ import { Provider } from 'react-redux';
 import { useEffect } from 'react';
 import React from 'react';
 import { withSuspense } from './HOC/withSuspense';
-import style from './App.css'
 import { NotFound } from './components/NotFound';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
@@ -37,7 +35,6 @@ const App = (props) => {
   return (
     <div className="app-wrapper">
       <HeaderContainer></HeaderContainer>
-      <Navbar></Navbar>
       <div className='app-wrapper-content'>
         <Switch>
         <Route exact path='/' render={()=> <Redirect to='/profile'/>} />

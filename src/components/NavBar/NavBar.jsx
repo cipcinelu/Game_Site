@@ -1,11 +1,10 @@
 import { NavLink } from 'react-router-dom'
 import Drawer from '@material-ui/core/Drawer';
-import { Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, MenuItem } from '@material-ui/core';
+import { Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import FaceIcon from '@material-ui/icons/Face';
 import MessageIcon from '@material-ui/icons/Message';
 import PeopleIcon from '@material-ui/icons/People';
-import SettingsIcon from '@material-ui/icons/Settings';
 
 const useStyles = makeStyles((theme) => ({
     drawerHeader: {
@@ -43,7 +42,6 @@ const Navbar = (props) => {
             {modListItem(FaceIcon, '/profile', 'Profile')}
             {modListItem(MessageIcon, '/dialogs', 'Messeges')}
             {modListItem(PeopleIcon, '/users', 'Users')}
-            {modListItem(SettingsIcon, '/profile', 'Settings')}
         </List>
     </Drawer>
 }

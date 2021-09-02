@@ -72,6 +72,7 @@ const ProfileInfo = ({ profile, updateStatus, status, isOwner, savePhoto, savePr
                     <CardActionArea component="button"
                                     onClick={handleClickOpen}>
                         <CardMedia height="230"
+                            width = "230"
                             component="img"
                             image={profile.photos.large || withoutPhoto}
                             alt='Аватарки нет :(' />
