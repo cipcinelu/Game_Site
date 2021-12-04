@@ -8,9 +8,6 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import BackupIcon from '@material-ui/icons/Backup';
 
 const useStyles = makeStyles((theme) => ({
-    input: {
-        display: 'none',
-    },
     profileData: {
         padding: `4%`,
     },

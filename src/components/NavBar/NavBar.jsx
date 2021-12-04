@@ -12,11 +12,12 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
+        //...theme.mixins.toolbar,
         justifyContent: 'flex-end',
+        height: `57px`
     },
     drawerPaper: {
-        width: `20%`,
+        width: `16%`,
     },
 }))
 
@@ -32,12 +33,12 @@ const Navbar = (props) => {
             paper: styleUI.drawerPaper,
         }}>
         <div className={styleUI.drawerHeader}>
-            <IconButton 
+            <IconButton
                 onClick={() => props.setDrawerOpen(false)}>
                 <ChevronLeftIcon />
             </IconButton>
         </div>
-        <Divider/>
+        <Divider />
         <List>
             {modListItem(FaceIcon, '/profile', 'Profile')}
             {modListItem(MessageIcon, '/dialogs', 'Messeges')}

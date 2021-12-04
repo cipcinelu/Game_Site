@@ -9,16 +9,20 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Svg } from '../svg';
 
 const useStyles = makeStyles((theme) => ({
+  toolbar: {
+
+  },
   logo: {
+    marginTop:`4px`,
+    marginLeft: `1%`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     })
   },
   logoActive: {
-    width: `70px`,
-    
-    marginLeft: `17%`,
+    marginTop:`4px`,
+    marginLeft: `13%`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen
@@ -35,8 +39,8 @@ const Header = (props) => {
     const [isDrawerOpen, setDrawerOpen] = useState(getWindowDimensions());
     const styleUI = useStyles();
 
-    return <AppBar className={style.header}>
-        <Toolbar>
+    return <AppBar style={{boxShadow: "none"}}>
+        <Toolbar variant = "dense" className = {style}>
             <IconButton onClick = {() => setDrawerOpen(true)} 
                         edge="start" 
                         className={style.menuButton} 
@@ -51,7 +55,7 @@ const Header = (props) => {
             <NavLink to = '/profile' className = {isDrawerOpen 
                                           ? styleUI.logoActive
                                           : styleUI.logo}>
-            <Svg id = 'jobstik'></Svg>
+              <Svg id = 'jobstik'></Svg>
             </NavLink>
             <div className={style.loginBlock}>
                 {props.isAuth

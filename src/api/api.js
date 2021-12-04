@@ -7,14 +7,14 @@ const instance = axios.create({ // создаём инстанс (объект) 
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        "API-KEY": APIKEY
+        "API-KEY": APIKEY 
     }
 }) 
 
 export const usersAPI = {
     getUsers (currentPage = 1, pageSize = 10) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(returnResponse)
+            .then(returnResponse) 
     },
     follow (userId) {
         return instance.post (`follow/${userId}`)

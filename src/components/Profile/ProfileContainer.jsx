@@ -39,7 +39,7 @@ class ProfileContainer extends React.Component {
                 owner = {!this.props.match.params.userId}
                 savePhoto = {this.props.savePhoto}
                 saveProfile = {this.props.saveProfile}
-                ></Profile>
+            ></Profile>
         )
     }
 }

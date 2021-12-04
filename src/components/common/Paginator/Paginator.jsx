@@ -2,8 +2,6 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import React, { useState } from 'react'
 import styles from './Paginator.module.css'
 
-
-
 const Paginator = (props, { portionSize = 10 }) => {
     let pagesCount = Math.ceil((props.totalItemsCount) / props.pageSize);
 

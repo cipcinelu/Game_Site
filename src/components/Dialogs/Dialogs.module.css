@@ -7,6 +7,17 @@
     margin-top: 5%;
 }
 
+.messages {
+    overflow: auto;
+    max-height: 22em;
+}
+
+.textField {
+    position: fixed;
+    bottom: 3em;
+    width:50%;
+    min-height: 2em;
+}
 
 .dialogsItems {
     padding: 10px;
@@ -27,3 +38,4 @@
     resize: none;
     width: 98%;
 }
+

@@ -59,19 +59,22 @@ const Dialogs = (props) => {
                 {dialogsElement}
             </ButtonGroup>
         </div>
-        <div className={style.messager}>
+        <div className={style.messages}>
             {messagesElement}
         </div>
-        {id>0 && <form onSubmit={formik.handleSubmit}>
-            <TextField label = 'Message'
+        {id > 0 && <form onSubmit={formik.handleSubmit}>
+            <TextField  className = {style.textField}
+                        label = 'Message'
                         name='message'
                         id="message" 
                         type = 'message'
-                        fullWidth
+                        autoFocus = {true}
                         value = {formik.values.message}
                         onChange={formik.handleChange}
-                        error = {formik.touched.message && Boolean(formik.errors.message)}
-                        helperText={formik.touched.message && formik.errors.message}/>
+                        error = {formik.touched.message 
+                            && Boolean(formik.errors.message)}
+                        helperText={formik.touched.message 
+                            && formik.errors.message}/>
         </form>}
     </div>
 }
